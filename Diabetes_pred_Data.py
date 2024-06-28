@@ -42,7 +42,7 @@ tree = DecisionTreeClassifier()
 tree.fit(X_train, y_train)
 y_pred_tree = tree.predict(X_test)
 
-# 7. CNN 모델 학습 및 평가
+# 7. CNN 모델 학습 및 평가[심화]
 # CNN 모델을 위해 데이터를 3차원으로 변환
 X_train_cnn = np.expand_dims(X_train, axis=2)
 X_test_cnn = np.expand_dims(X_test, axis=2)
@@ -63,7 +63,7 @@ history = cnn.fit(X_train_cnn, y_train_cnn, epochs=5, batch_size=16, validation_
 y_pred_cnn = cnn.predict(X_test_cnn)
 y_pred_cnn_classes = np.argmax(y_pred_cnn, axis=1)
 
-# 8. 평가지표 출력 및 차트 시각화
+# 8. 평가지표 출력 - 차트 시각화[심화]
 def print_metrics(y_test, y_pred, model_name):
     accuracy = accuracy_score(y_test, y_pred)
     precision = precision_score(y_test, y_pred)
@@ -82,7 +82,7 @@ svm_metrics = print_metrics(y_test, y_pred_svm, "SVM")
 tree_metrics = print_metrics(y_test, y_pred_tree, "결정 트리")
 cnn_metrics = print_metrics(y_test, y_pred_cnn_classes, "CNN")
 
-# CNN 학습 과정 시각화
+# CNN 학습 과정 시각화[[심화]
 plt.plot(history.history['accuracy'], label='train_accuracy')
 plt.plot(history.history['val_accuracy'], label='val_accuracy')
 plt.xlabel('Epoch')
@@ -91,7 +91,7 @@ plt.legend()
 plt.title('CNN Model Accuracy')
 plt.show()
 
-# 모델 비교 차트 시각화
+# 모델 비교 차트 시각화[심화]
 models = ['Logistic Regression', 'SVM', 'Decision Tree', 'CNN']
 metrics = ['Accuracy', 'Precision', 'Recall', 'F1 Score']
 log_reg_metrics = list(log_reg_metrics)
