@@ -1,52 +1,27 @@
-# Head-Detection-Yolov8
-This repo provides a YOLOv8 model, finely trained for detecting human heads in complex crowd scenes, with the CrowdHuman dataset serving as training data. To boost accessibility and compatibility, I've reconstructed the labels in the CrowdHuman dataset, removing useless annotations, refining its annotations to perfectly match the YOLO format. 
+My Python Learning Journey 🚀
+📌 Introduction
+This repository is a collection of code and projects that I have worked on while learning Python.
+I aim to reinforce my understanding by writing and applying code, rather than just studying concepts theoretically.
 
-# Detection Example
-![273271,1b9330008da38cd6.jpg](ImageDetExample/273271,1b9330008da38cd6.jpg)
+📖 How I Study Python
+I focus on hands-on learning rather than passive studying. My approach includes:
 
-![273271,1bb16000e7a389a3.jpg](ImageDetExample/273271,1bb16000e7a389a3.jpg)
+Learning fundamental concepts (syntax, data structures, algorithms)
+Project-based learning (solving real-world problems and building small applications)
+Analyzing open-source projects and real-world code
+Continuously improving and optimizing my own code
+🎯 My Learning Focus
+Currently, I am particularly interested in:
 
-![273271,1bd660006ab0ac6a.jpg](ImageDetExample/273271,1bd660006ab0ac6a.jpg)
+Algorithms & Data Structures 🧠
+Automation & Scripting ⚙️
+Data Analysis & Visualization 📊
+Web Development (Flask, Django) 🌐
+I plan to continue learning and documenting my progress along the way.
 
-![273271,1be0200037d3046d.jpg](ImageDetExample/273271,1be0200037d3046d.jpg)
+💾 My Code Repository
+The code in this repository is based on what I have learned and experimented with.
+I am always working on debugging, improving performance, and writing better code.
+Feedback and suggestions are always welcome!
 
-![273271,1c4c300008432bc2.jpg](ImageDetExample/273271,1c4c300008432bc2.jpg)
-
-![273271,1c20c00070107528.jpg](ImageDetExample/273271,1c20c00070107528.jpg)
-
-![273271,1c72c000a2ee47d5.jpg](ImageDetExample/273271,1c72c000a2ee47d5.jpg)
-
-![273271,1cc7d000a31f3d60.jpg](ImageDetExample/273271,1cc7d000a31f3d60.jpg)
-
-![273271,1ed81000290034fa.jpg](ImageDetExample/273271,1ed81000290034fa.jpg)
-
-![273271,1f0ac00034c81048.jpg](ImageDetExample/273271,1f0ac00034c81048.jpg)
-
-![273271,1f3ca000086fb919.jpg](ImageDetExample/273271,1f3ca000086fb919.jpg)
-
-
-# CrowdDataset Dataset&Yolo Format
-Download the CrowdDataset from [https://www.crowdhuman.org/download.html]. I have provided the YOLO format labels in the `CrowdHumanHead/labels.zip` file. Simply unzip this file and place the contents in the `CrowdHumanHead/labels` directory.
-
-
-# Pre-trained YoloV8 Head Detection Model
-Please download the model weight from this [Google Drive URL](https://drive.google.com/file/d/1qlBmiEU4GBV13fxPhLZqjhjBbREvs8-m/view?usp=sharing). 
-
-
-# Model Inference 
-`
-python3 pred_yolo_v8.py
-`
-
-
-# Model Training 
-`
-python3 train_yolo_v8.py
-`
-
-
-# Some Useful Scrip as References
-`Scrip/create_chuman.py` -- Creat txt format labels from ODGT.
-`Scrip/gen_labels.py` -- Generate YOLO labels from txt format.
-`Scrip/vis_labels.py`-- Visualize YOLO labels for label checking.
-
+📌 Check out the README files in each project folder for more details.
