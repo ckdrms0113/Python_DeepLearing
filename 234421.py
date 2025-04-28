@@ -6,12 +6,15 @@ import numpy as np
 import cv2
 
 # 디렉토리 설정 (사용자가 지정)
-image_folder = r'E:\대구 테크비즈센터\2025-01-02\image8'  # 원본 이미지 디렉토리
-person_detected_folder = r'E:\대구 테크비즈센터\2025-01-02\image8\Soure01'  # 사람이 감지된 이미지를 저장할 디렉토리
-no_person_folder = r'E:\대구 테크비즈센터\2025-01-02\image8\Dummy'  # 사람이 감지되지 않은 이미지를 저장할 디렉토리
+image_folder = r'D:\Desktop\images'  # 원본 이미지 디렉토리
+person_detected_folder = r'D:\Desktop\Yes'  # 사람이 감지된 이미지를 저장할 디렉토리
+no_person_folder = r'D:\Desktop\NO'  # 사람이 감지되지 않은 이미지를 저장할 디렉토리
 
-
-
+# ROI 조절 파라미터 (비율 입력, 0.0 ~ 1.0)
+roi_top = 0.3   # 상단 25% 제외
+roi_bottom = 0.0 # 하단 제외 없음
+roi_left = 0.0   # 좌측 제외 없음
+roi_right = 0.0 # 우측 25% 제외
 
 #----------------------------------------------------------------#
 #----------------------------------------------------------------#
@@ -25,15 +28,18 @@ model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
 person_class_id = 0  # 'person' 클래스 ID
 confidence_threshold = 0.4  # 신뢰도 임계값
 
-# ROI 범위 설정 함수 (우측 하단을 제외한 영역)
-# ROI 범위 설정 (우측 하단의 x값만 제외한 영역)
+# ROI 범위 설정 함수 (사용자 지정 비율 적용)
 def get_roi(image):
     width, height = image.size
     
-    # 우측 25%를 제외한 x 범위
-    right_x = int(width * 0.75)  # 우측 25%를 제외
-    return 0, right_x  # ROI 범위 반환 (x_min, x_max)
-##########
+    # ROI 계산
+    top_y = int(height * roi_top)
+    bottom_y = height - int(height * roi_bottom)
+    left_x = int(width * roi_left)
+    right_x = width - int(width * roi_right)
+    
+    return left_x, right_x, top_y, bottom_y  # ROI 범위 반환
+
 # 이미지 처리
 for image_name in os.listdir(image_folder):
     if image_name.lower().endswith(('.jpg', '.jpeg', '.png', '.bmp', '.tiff')):
@@ -41,18 +47,14 @@ for image_name in os.listdir(image_folder):
         image = Image.open(image_path).convert('RGB')
 
         # ROI 범위 얻기
-        roi_x1, roi_x2 = get_roi(image)
+        roi_x1, roi_x2, roi_y1, roi_y2 = get_roi(image)
         
-        # ROI 영역만 적용 (y값 전체 사용)
+        # ROI 영역만 적용
         image_array = np.array(image)
-        roi_image = image_array[:, roi_x1:roi_x2]  # y값 전체, x값만 자름
+        roi_image = image_array[roi_y1:roi_y2, roi_x1:roi_x2]  # 잘라낸 영역 적용
 
-        # ROI 경계선 그리기 (x축만 표시)
-        cv2.rectangle(image_array, (roi_x1, 0), (roi_x2, image_array.shape[0]), (150, 255, 90), 3)
-
-        # ROI 경계가 그려진 이미지를 확인 (디버그용)
-        #roi_image_with_border = Image.fromarray(image_array)
-        #roi_image_with_border.show()
+        # ROI 경계선 그리기
+        cv2.rectangle(image_array, (roi_x1, roi_y1), (roi_x2, roi_y2), (150, 255, 90), 3)
 
         # YOLO 모델을 사용하여 객체 감지 (ROI 영역만 적용)
         results = model(roi_image)
