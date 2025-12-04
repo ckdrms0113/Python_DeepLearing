@@ -76,3 +76,4 @@ for image_name in os.listdir(image_folder):
         else:
             shutil.move(image_path, os.path.join(no_person_folder, image_name))
             print(f"[감지X] {image_name} → {no_person_folder}")
+
